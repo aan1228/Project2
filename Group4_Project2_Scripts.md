@@ -1,4 +1,4 @@
-# Project2 Script
+# Project2 BASH Script
 
 ## Housekeeping
 
@@ -7,7 +7,7 @@ First, the directory structure was constructed.
 ```bash
 mkdir /home/micb405/Group4/project2
 mkdir /home/micb405/Group4/project2/Fq
-mkdir /home/micb405/Group4/project2/Scripts
+mkdir /home/micb405/Group4/project2/Emirge
 mkdir /home/micb405/Group4/project2/output
 mkdir /home/micb405/Group4/project2/output/Megahit
 mkdir /home/micb405/Group4/project2/output/Maxbin
