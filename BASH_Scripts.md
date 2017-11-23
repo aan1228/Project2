@@ -160,7 +160,7 @@ awk 'NR==FNR {h[$1] = $2; next} {print $1,$2,$3,$4,h[$1]}' bin_nitrogen_cycler_g
 ```
 
 ## Constructing Phylogeny
-EMIRGE output was provided by Connor. MUSCLE and FastTree were used to perform multiple sequence alignment and tree construction, respectively. The ```165M_fastree.tree``` file was uploated to [iTOL](http://itol.embl.de/upload.cgi) for visualization.
+EMIRGE output was provided by Connor. MUSCLE and FastTree were used to perform multiple sequence alignment and tree construction, respectively. The ```165M_fasttree.tree``` file was uploated to [iTOL](http://itol.embl.de/upload.cgi) for visualization.
 ```bash
 cd /home/micb405/Group4/project2/EMIRGE
 muscle -in SI072_LV_165m_DNA.emirge_taxa.fasta -out MUSCLE_165m.mfa
