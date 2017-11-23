@@ -84,7 +84,7 @@ ggplot(T_salinity_historical, aes(x=Temperature, y=Depth)) +
 
 ## CheckM Output (Figure 2)
 
-Generated using the checkM csv file
+Generated using the ```Group4_checkM_stdout.tsv``` file found in the ```Group4/project2/output/MASH``` directory.
 ```R
 group4checkM <- 
   read.csv(file.choose())
