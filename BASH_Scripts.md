@@ -75,7 +75,7 @@ The Saanich and RefSeq MASH outputs were then merged.
 ```bash
 cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > Mash_classifications.BEST.tsv 
 ```
-This was then manually annotated using emacs based on GenBank IDs, and called ```Mash_classifications.BEST.annotated.tsv```
+This was then manually annotated based on GenBank IDs, and called ```Mash_classifications.BEST.annotated.tsv```
 
 LAST was also run using the SILVA databse on the filtered checkM output to complete our taxonomic assignments.
 ```bash
