@@ -26,6 +26,8 @@ mkdir /home/micb405/Group4/project2/output/PROKKA
 
 ```PROKKA``` contains the annotations of the 20 bins that passed our thresholds (a directory for each bin), a directory called ```RPKM``` which contains outputs used to generate RPKM data, and ```Prokka_All``` which contains the annotations for all of the metagenome. 
 
+![alt text](https://i.imgur.com/qvpdJPC.png)
+
 We then used FastQC to check quality of FASTQ files.
 
 ```bash
