@@ -51,7 +51,7 @@ cd /home/micb405/Group4/project2/output
 perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -contig Megahit/final.contigs.fa -thread 2 -out Maxbin/SI072_LV_165m_DNA_binned -reads /home/micb405/data/project_2/SI072_LV_165m_DNA_R1.fastq.gz -reads2 /home/micb405/data/project_2/SI072_LV_165m_DNA_R2.fastq.gz
 ```
 
-checkM was run by Connor to determine completeness and contamination of assemblies. We filtered only assemblies greater than 10% completion and less than 5% contamintation from checkM output. The list of these bins passing threshold was generated, called ```GT10Complete_LT5Contam_MAGs_checkM.tsv```
+checkM was run by Connor to determine completeness and contamination of assemblies. We filtered only assemblies greater than 10% completion and less than 5% contamintation from checkM output. Using a script provided by Connor, the list of these bins passing threshold was generated, called ```GT10Complete_LT5Contam_MAGs_checkM.tsv```
 ```bash
 cd /home/micb405/Group4/project2/output/MASH
 awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' Group4_checkM_stdout.tsv >GT10Complete_LT5Contam_MAGs_checkM.tsv
