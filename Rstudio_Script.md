@@ -1,7 +1,7 @@
 # Generating Figures using Rstudio
 
 ## Ocean Chemical Curves (Figure 1)
-```Rstudio
+```R
 install.packages("ggplot2")
 library(ggplot2)
 
@@ -85,7 +85,7 @@ ggplot(T_salinity_historical, aes(x=Temperature, y=Depth)) +
 ## CheckM Output (Figure 2)
 
 Generated using the checkM csv file
-```
+```R
 group4checkM <- 
   read.csv(file.choose())
 
@@ -129,7 +129,7 @@ After annotating with MASH and SILVA, the number of times each phyla showed up i
 |Tracheophyta	|MASH|	0|
 
 
-```
+```R
 library(ggplot2)
 phylum = read.table('Annotations.csv', header=TRUE, sep=',')
 
@@ -140,4 +140,76 @@ ggplot(phylum, aes(factor(Phylum), Count, fill = Method)) +
   scale_fill_brewer(palette="Set1") +
   scale_y_continuous(breaks=seq(0,10,2)) +
   theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1))
+```
+
+## Generating Nx Curve
+
+```R
+library(ggplot2)
+
+args = commandArgs(trailingOnly=TRUE)
+
+# test if there is at least one argument: if not, return an error
+if (length(args)==0) {
+  stop("At least one argument must be supplied!\n\n\tUSAGE: assembly1_Nx.txt [assembly2_Nx.txt] ...", call.=FALSE)
+}
+
+# vector_size <- length(args) * 100
+lengths <- vector(mode = "double")
+proportions <- vector(mode = "double")
+Assembly <- vector(mode = "character")
+
+for (n in 1:length(args)) {
+  nx_file <- args[n]
+  cat(paste0("Reading Nx stats for ", nx_file, "... "))
+  
+  Nx_stats <- read.table(file = nx_file,
+                         header=T,
+                         sep=',')
+  
+  proportions <- c(proportions, Nx_stats$Genome_proportion[2:101])
+  lengths <- c(lengths, Nx_stats$Contig_size[2:101])
+  Assembly <- c(Assembly, rep(basename(nx_file), 100))
+  cat("done.\n")
+}
+
+nx_data <- data.frame(Assembly, proportions, lengths)
+
+nx_curve <- ggplot(nx_data, aes(x=proportions, y=lengths, col=Assembly)) +
+  geom_line()+
+  xlab("Assembly Proportion") +
+  ylab("Contig Length")
+
+ggsave(filename = "Nx_plot.png", plot = nx_curve, dpi = 500, type = "cairo-png")
+```
+
+## Generating Bubble plots for Nitrogen Cycle Gene Abundance
+
+```R
+rm(list = ls())
+library(datasets)
+library(ggplot2)
+data(airquality)
+
+df = read.table(file = '/Users/cameronherberts/micbproject2/gene_abund_to_bin_rpkm.tsv', sep = '\t', header = TRUE)
+
+df$bin_num <-(as.character(df$bin_num ))
+
+p6 <- ggplot(df, aes(x = taxonomy, y = prokka_gene_id, size = rkpm_abundance)) +
+  geom_point(shape = 21) +
+  theme_bw() +
+  theme() +
+  ggtitle("Metagenome gene abundance (rpkm)") +
+  geom_text(data=df,aes(x=taxonomy, y=prokka_gene_id,label=rkpm_abundance),
+            position=position_dodge(width=0), hjust=0.5, vjust=-1.6, size=3) + 
+  labs(x = "Taxonomy", y = "Prokka gene name",
+       size = "Abundance (rpkm)") +
+  scale_size(range = c(1, 10))
+  theme(legend.position="bottom", legend.direction="horizontal",
+        legend.box = "horizontal",
+        legend.key.size = unit(1, "cm"))
+  
+p7 <- p6 + coord_flip()
+p7
+ggsave(p7,file='/Users/cameronherberts/micbproject2/rpkm_abundance.pdf')
 ```
